@@ -1,0 +1,376 @@
+{% extends "layout.html" %}
+{% block head %}
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+
+    <style>
+        a {
+            color: dodgerblue;
+        }
+        a:hover {
+            {#color: red;#}
+            text-decoration: underline;
+        }
+    </style>
+
+{% endblock head %}
+{% block content %}
+
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background: white">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" style="text-transform: capitalize" >Statistics</li>
+            </ol>
+    </nav>
+
+    <div class="container">
+    <h3 style="margin-top: 30px; padding-bottom: 20px">Data Visualisation</h3>
+        <div class="row" style="margin-top: 30px">
+            <div class="col-sm-9 col-md-9 col-lg-9">
+                <div class="container" id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="ml">
+                    <p style="margin-top: 50%">
+                        Historical data demonstrates that the number of clients served by homeless support services were increasing in past a decade, especially for female clients.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 30px">
+            <div class="col-sm-9 col-md-9 col-lg-9">
+                <div class="container" id="container2" style="min-width: 310px; height: 400px; margin: 30px auto"></div>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="ml">
+                    <p style="margin-top: 50%">
+                        Research has pointed out that emotional abuse has became one of the leading causes of homelessness. Figure 2 has shown that financial abuse is the third largest subset of abusive behaviors and females are generally more vulnerable.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 30px">
+            <div class="col-sm-9 col-md-9 col-lg-9">
+                <div class="container" id="container3" style="height: 400px; margin: 30px auto"></div>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="ml">
+                    <p style="margin-top: 50%">
+                         Most people are seeking for help from friends. However, what if friends are unavailable or the victim is a new migrant who has limited friends in Australia? If this is the case, our website would help.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 30px">
+            <div class="col-sm-9 col-md-9 col-lg-9">
+                <div class="container" id="container4" style="min-width: 310px; height: 400px; margin: 30px auto"></div>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="ml">
+                    <p style="margin-top: 50%">
+                        When people only know few names of help services or have limited channels to know more services, one or a few help centers might be too crowded and unassisted requests would arise. In this case, we expect our website providing a channel that allowing people know more services around Melbourne.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#    <footer class="site-footer" role="contentinfo" style="margin-top: 100px">#}
+{#        <div class="row">#}
+{#        <div class="col-12 text-md-center text-left">#}
+{#          <p>#}
+{#              Data sources are provided by <a href="https://www.aihw.gov.au/reports-data/behaviours-risk-factors/domestic-violence/overview" target="_blank">#}
+{#              Australian Institution of Health and Welfare#}
+{#          </a>#}
+{#          </p>#}
+{#        </div>#}
+{#      </div>#}
+{#    </footer>#}
+
+
+    <script>
+        Highcharts.chart('container1', {
+          chart: {
+            type: 'column'
+          },
+          title: {
+            text: 'Total Number of Homeless People Assisted During 2011-2018',
+          },
+          xAxis: {
+            categories: ['2011–12', '2012–13', '2013–14', '2014–15', '2015–16','2016–17','2017–18']
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Total clients served'
+            },
+            stackLabels: {
+              enabled: true,
+              style: {
+                fontWeight: 'bold',
+                color: ( // theme
+                  Highcharts.defaultOptions.title.style &&
+                  Highcharts.defaultOptions.title.style.color
+                ) || 'gray'
+              }
+            }
+          },
+          legend: {
+            align: 'right',
+            x: -30,
+            verticalAlign: 'top',
+            y: 25,
+            floating: true,
+            backgroundColor:
+              Highcharts.defaultOptions.legend.backgroundColor || 'white',
+            borderColor: '#CCC',
+            borderWidth: 1,
+            shadow: false
+          },
+          tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+          },
+          plotOptions: {
+            column: {
+              stacking: 'normal',
+              dataLabels: {
+                enabled: true
+              }
+            }
+          },
+          exporting: {enabled: false},
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+          credits: {
+                    enabled: false
+                },
+          series: [{
+            name: 'Female',
+            data: [139630,	143054,	149455,	151707,	165765,	172530,	175632]
+          }, {
+            name: 'Male',
+            data: [96798,	101122,	104547,	103951,	113431,	115744,	113163]
+          }]
+    });
+
+    Highcharts.chart('container2', {
+          credits: {
+                    enabled: false
+                },
+          exporting: {enabled: false},
+          title: {
+            text: 'Emotionally Abusive Behaviours Experienced by Adults in 2018 '
+          },
+          xAxis: {
+            categories: ['Social control',
+                        'Financial abuse',
+                        'Verbal abuse',
+                        'Lied to family',
+                        'Threats to children',
+                        'Threats to pets',
+                        'Damage or theft of property'
+                        ]
+          },
+          series: [{
+            type: 'column',
+            name: 'Female',
+            data: [63.2,48.1,76.1,40.2,26.9,10.7,32.1]
+          }, {
+            type: 'column',
+            name: 'Male',
+            data: [53.6,
+                    34.7,
+                    55.7,
+                    51.2,
+                    28.0,
+                    3.9,
+                    27.0
+                    ],
+            color:
+            Highcharts.getOptions().colors[2]
+          }, {
+            type: 'spline',
+            name: 'Average',
+            data: [58.3,
+                41.3,
+                65.8,
+                45.6,
+                27.4,
+                7.2,
+                29.5
+                ],
+            marker: {
+              lineWidth: 2,
+              lineColor: Highcharts.getOptions().colors[3],
+              fillColor: 'white'
+            }
+          }, {
+            type: 'pie',
+            name: 'Average Proportion of People Experienced Abusive Behaviours by Gender',
+            data: [{
+              name: 'Female',
+              y: 42.4,
+              color: Highcharts.getOptions().colors[0] // Jane's color
+            }, {
+              name: 'Male',
+              y: 36.2,
+              color: Highcharts.getOptions().colors[2] // Joe's color
+            }],
+            center: [100, 10],
+            size: 100,
+            showInLegend: false,
+            dataLabels: {
+              enabled: false
+            }
+          }]
+        });
+
+    Highcharts.chart('container3', {
+      chart: {
+        type: 'pie',
+        options3d: {
+          enabled: true,
+          alpha: 45,
+          beta: 0
+        }
+      },
+      title: {
+        text: 'Places Stayed During Temporary Separation from Abusive Partner'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      exporting: {enabled: false},
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+      credits: {
+                enabled: false
+            },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          depth: 35,
+          dataLabels: {
+            enabled: true,
+            format: '{point.name}'
+          }
+        }
+      },
+      series: [{
+        type: 'pie',
+        name: 'percentage share',
+        data: [
+          ['Friend or relatives house', 80.8],
+          ['Relocated to a new house or rental property', 28.1],
+          ['Refuge or shelter', 13.1],
+          ['Motel, hotel, serviced apartment, caravan park', 9.0],
+          ['Slept rough', 5.2],
+          ['Boarding house, hostel', 2.0],
+          ['Other', 1.5]
+        ]
+      }]
+    });
+
+    Highcharts.chart('container4', {
+      chart: {
+        type: 'areaspline'
+      },
+      exporting: {enabled: false},
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+      credits: {
+                enabled: false
+            },
+      title: {
+        text: 'Daily Average Unassisted Requests during 2017–2018'
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 150,
+        y: 100,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor:
+          Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
+      },
+      xAxis: {
+        categories: [
+          '0–9',
+          '10–14',
+          '15–17',
+          '18–24',
+          '25–34',
+          '35–44',
+          '45–54',
+          '55–64',
+          '65+'
+        ],
+      },
+      yAxis: {
+        title: {
+          text: 'units'
+        }
+      },
+      tooltip: {
+        shared: true,
+        valueSuffix: ' units per day'
+      },
+      credits: {
+        enabled: false
+      },
+      plotOptions: {
+        areaspline: {
+          fillOpacity: 0.5
+        }
+      },
+      series: [{
+        name: 'Females',
+        data: [3.0,
+                1.1,
+                2.4,
+                4.8,
+                7.3,
+                7.1,
+                4.8,
+                1.6,
+                0.8
+                ]
+      }, {
+        name: 'Males',
+        data: [2.8,
+                0.8,
+                2.3,
+                2.1,
+                3.0,
+                2.2,
+                1.8,
+                1.0,
+                0.6
+                ]
+      }]
+    });
+
+    </script>
+
+{% endblock content %}
+
+
+{#        plotBands: [{#}
+{#          from: 4.5,#}
+{#          to: 6.5,#}
+{#          color: 'rgba(68, 170, 213, .2)'#}
+{#        }]#}

@@ -1,0 +1,213 @@
+{% extends "layout.html" %}
+{% block head %}
+    <style>
+        a {
+            color: dodgerblue;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb-item{
+            text-transform: capitalize
+        }
+    </style>
+{% endblock head %}
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background: white">
+            {% if title == 'Service Imformation' %}
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('serviceDisplay', service_name=servicename) }}">{{ servicename }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ data['Name'] }}</li>
+            {% else %}
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('searchDisplay', keyword=keyword) }}">Search</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ data['Name'] }}</li>
+            {% endif %}
+        </ol>
+    </nav>
+{#    <button id='back' type="button" class="btn btn-primary" onclick="back()">Back</button>#}
+    <p id="id_" style="display: none">{{ data['id_'] }}</p>
+    <p id="type" style="display: none">{{ data['type'] }}</p>
+    {% if servicename != 'hotlines' %}
+        <div class="row">
+            <div class="col-sm-7 col-md-7 col-lg-7">
+                <ul class="list-group list-group-flush">
+                    {% if data['Address'] != 'Unknown' %}
+                        <li class="list-group-item" id="description"><b>{{ data['Name'] }} ({{ data['Type'] }})</b></li>
+                        <li class="list-group-item">Address: {{ data['Address'] }}, {{data['Suburb']}}</li>
+                        <li class="list-group-item">Phone: {{ data['Phone'] }}</li>
+                        <li class="list-group-item">Email: {{ data['Email'] }}</li>
+                        <li class="list-group-item" id="longitude" style="display: none">{{ data['Longitude'] }}</li>
+                        <li class="list-group-item" id="latitude" style="display: none">{{ data['Latitude'] }}</li>
+                        {% if data['Website'] != 'Unknown' %}
+                            <li class="list-group-item">Website: <a href="https://{{ data['Website'] }} " target="_blank">
+                                {{ data['Website'] }}</a></li>
+                        {% else %}
+                            <li class="list-group-item">Website: {{ data['Website'] }}</li>
+                        {% endif %}
+                        <li class="list-group-item">Rating: {{ data['meanRating'] }} <button type="button" class="btn btn-primary" onclick="myFunction1()">Rating</button></li>
+                        <li class="list-group-item" id="rating" style="display: none">
+                            <div class="container" >
+                                <header class='header text-center'>
+                                    <p>Do you like this service</p>
+                                </header>
+                                <section class='rating-widget'>
+                                    <div class='rating-stars text-center'>
+                                        <ul id='stars'>
+                                            <li class='star' title='Poor' data-value='1'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                            <li class='star' title='Fair' data-value='2'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                            <li class='star' title='Good' data-value='3'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                            <li class='star' title='Excellent' data-value='4'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                            <li class='star' title='WOW!!!' data-value='5'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class='success-box' style="text-align: center; display: none" >
+                                        <div class='text-message'></div>
+                                        <form method="POST" action="">
+                                            {{ form.hidden_tag() }}
+                                            <fieldset class="form-group">
+                                                <div class="form-group" style="display: none">
+                                                    {{ form.rating(class="form-control form-control-lg", id="myRating") }}
+                                                </div>
+                                            </fieldset>
+                                            <div class="form-group">
+                                                {{ form.submit(class="btn btn-outline-primary") }}
+                                            </div>
+                                        </form>
+                                    </div>
+                                </section>
+                            </div>
+                        </li>
+                        {% if data['Opening Hours'] != {}  %}
+                            <li class="list-group-item">Opening Hours: <b>Today({{ today }}): </b> {{ data['Opening Hours'][today] }}
+                                <button type="button" class="btn btn-primary" onclick="myFunction()">Show more</button></li>
+                            <li class="list-group-item" id="openingHours" style="display: none">
+                                <div class="container">
+                                    {% for key, value in data['Opening Hours'].items() %}
+                                        <p>{{ key }}: {{ value }}</p>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item">Opening Hours: Please check the website</li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div class="col-sm-5 col-md-5 col-lg-5">
+                <div id="map" style="height:500px"></div>
+                <br />
+            </div>
+        </div>
+
+    {% else %}
+        <div class="container">
+            <div class="row">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" id="description"><b>{{ data['Name'] }}</b></li>
+                    <li class="list-group-item">Description: {{ data['What'] }}</li>
+                    <li class="list-group-item">Phone: {{ data['Phone'] }}</li>
+                    <li class="list-group-item">Email: {{ data['Email'] }}</li>
+                    {% if data['Website'] != 'Unknown' %}
+                        <li class="list-group-item">Website: <a href="https://{{ data['Website'] }} " target="_blank">
+                            {{ data['Website'] }}</a></li>
+                    {% else %}
+                        <li class="list-group-item">Website: {{ data['Website'] }}</li>
+                    {% endif %}
+                    <li class="list-group-item">Rating: {{ data['meanRating'] }} <button type="button" class="btn btn-primary" onclick="myFunction1()">Rating</button></li>
+                    <li class="list-group-item" id="rating" style="display: none">
+                        <div class="container" >
+                            <header class='header text-center'>
+                                <p>Do you like this service</p>
+                            </header>
+                            <section class='rating-widget'>
+                                <div class='rating-stars text-center'>
+                                    <ul id='stars'>
+                                        <li class='star' title='Poor' data-value='1'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class='success-box' style="text-align: center; display: none" >
+                                    <div class='text-message'></div>
+                                        <form method="POST" action="">
+                                            {{ form.hidden_tag() }}
+                                            <fieldset class="form-group">
+                                                <div class="form-group" style="display: none">
+                                                    {{ form.rating(class="form-control form-control-lg", id="myRating") }}
+                                                </div>
+                                            </fieldset>
+                                            <div class="form-group">
+                                                {{ form.submit(class="btn btn-outline-primary") }}
+                                            </div>
+                                        </form>
+                                </div>
+                            </section>
+                        </div>
+                    </li>
+                    {% if data['Opening Hours'] != {}  %}
+                        <li class="list-group-item">Opening Hours: <b>{{ today }}</b> {{ data['Opening Hours'][today] }}
+                            <button type="button" class="btn btn-primary" onclick="myFunction()">Show more</button></li>
+                        <li class="list-group-item" id="openingHours" style="display: none">
+                            <div class="container">
+                                {% for key, value in data['Opening Hours'].items() %}
+                                    <p>{{ key }}: {{ value }}</p>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">Opening Hours: Please check the website</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <script>
+        function myFunction() {
+          var x = document.getElementById("openingHours");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }}
+
+        function myFunction1() {
+          var x = document.getElementById("rating");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }}
+
+        function back() {
+            history.back(-1)
+        }
+    </script>
+{% endblock content %}

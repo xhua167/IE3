@@ -1,0 +1,208 @@
+{% extends "layout.html" %}
+{% block head %}
+    <style>
+        iframe {
+            margin: 30px auto;
+            display: block;
+        }
+
+        .ml {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%)
+        }
+
+        .ml li {
+            padding-bottom: 15px;
+        }
+
+        a {
+            color: dodgerblue;
+        }
+        a:hover {
+            {#color: red;#}
+            text-decoration: underline;
+        }
+
+    </style>
+
+{% endblock head %}
+{% block content %}
+
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background: white">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" style="text-transform: capitalize" >Checklist</li>
+            </ol>
+    </nav>
+
+    <div class="container">
+    <h3>What is Financial Abuse?</h3>
+        <iframe src="https://www.youtube.com/embed/Fd01frnMHB4" width="672" height="378" frameborder="0" allow="accelerometer;
+        autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="container">
+        <h3 style="margin-top: 30px">Warning Signs</h3>
+        <div class="row" style="margin-top: 30px">
+            <div class="col-4">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-home1-list" data-toggle="list" href="#list-home1" role="tab" aria-controls="home1">
+                        Controlling of your money
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-messages1-list" data-toggle="list" href="#list-messages1" role="tab" aria-controls="messages1">
+                        Stopping you from earning your money
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-settings1-list" data-toggle="list" href="#list-settings1" role="tab" aria-controls="settings1">
+                        Denying you access to personal accounts
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-a-list" data-toggle="list" href="#list-a" role="tab" aria-controls="a">
+                        Manipulating credit and debt
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-b-list" data-toggle="list" href="#list-b" role="tab" aria-controls="b">
+                        Refusing to contribute
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-c-list" data-toggle="list" href="#list-c" role="tab" aria-controls="c">
+                        Generating economic costs
+                    </a>
+
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-home1" role="tabpanel" aria-labelledby="list-home1-list">
+
+                        <div class="ml">
+                            <li>Making you financially dependent and unable to meet basic needs.</li>
+                            <li>Denying you access to financial information and decision-making.</li>
+                            <li>Monitoring your purchase through receipts and limiting your spending.</li>
+                            <li>Being in charge of the household income and paying you an allowance.</li>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="list-messages1" role="tabpanel" aria-labelledby="list-messages1-list">
+                        <div class="ml">
+                            <li>Does not let you get a job or going to work.</li>
+                            <li>Wants you resign your job.</li>
+                            <li>Physically hurts you from attending your job.</li>
+                            <li>Stops you from attending job training or advancement opportunities.</li>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-settings1" role="tabpanel" aria-labelledby="list-settings1-list">
+                        <div class="ml">
+                            <li>Exerting power and control over your savings through actions or threats.</li>
+                            <li>Destroying your possession.</li>
+                            <li>Using your financial resource.</li>
+                            <li>Using your account for gambling.</li>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-a" role="tabpanel" aria-labelledby="list-a-list">
+                        <div class="ml">
+                            <li>Making you financially responsible for debt.</li>
+                            <li>Building up debt and affecting your credit rating.</li>
+                            <li>Utilities or loans being registered in your name only.</li>
+                            <li>You are being made bankrupt for their debts</li>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-b" role="tabpanel" aria-labelledby="list-b-list">
+                        <div class="ml">
+                            <li>Not being accountable for their own spending.</li>
+                            <li>Refusing to work or claim benefits.</li>
+                            <li>Refusing to pay bills.</li>
+                            <li>Refusing to contribute to the costs of raising children.</li>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-c" role="tabpanel" aria-labelledby="list-c-list">
+                        <div class="ml">
+                            <li>Destroying clothes or property.</li>
+                            <li>Someone is selling (or threatening to sell) your property without your permission.</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 30px">Plan of Actions</h3>
+        <div class="row" style="margin-top: 30px">
+            <div class="col-4">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">
+                        Day-to-day money management
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">
+                        Future financial planning
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">
+                        Knowing your rights
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">
+                        Safeguard your Personal account
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-d-list" data-toggle="list" href="#list-d" role="tab" aria-controls="d">
+                        Protect your privacy
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="list-e-list" data-toggle="list" href="#list-e" role="tab" aria-controls="e">
+                        Contact your bank advisor immediately
+                    </a>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="tab-content" id="nav-tabContent" style="list-style-type:disc;">
+                    <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                        <div class="ml">
+                            <li>Keep track of your money by checking your  bank statements, using budgeting apps or through spreadsheet that you have kept track of.</li>
+                            <li>Check for credit card statement for unusual activity and keep your receipts with yourself.</li>
+                            <li>Have a thorough check of your bank statement.</li>
+                            <li><a href="https://www.commbank.com.au/women-in-focus/womens-financial-wellbeing-guide.html" target="_blank">https://www.commbank.com.au/women-in-focus/womens-financial-wellbeing-guide.html</a></li>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                        <div class="ml">
+                            <li>Try to save your money on a regular basis.</li>
+                            <li>Limit your spending, try to minimize your expense on unnecessary things.</li>
+                            <li><a href="https://www.moneysmart.gov.au/managing-your-money" target="_blank">https://www.moneysmart.gov.au/managing-your-money</a></li>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                        <div class="ml">
+                            <li>Inform the HR or boss in your workplace as they can support you and provide special leave or time off.</li>
+                            <li>Inform your close friend/ immediate family members about your situation.</li>
+                            <li>Contact police if you are in immense danger.</li>
+                            <li><a href="https://www.helpguide.org/articles/abuse/domestic-violence-and-abuse.html" target="_blank">https://www.helpguide.org/articles/abuse/domestic-violence-and-abuse.html</a></li>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                        <div class="ml">
+                            <li>Try to protect your financial assets and other important documents by not sharing with everyone.</li>
+                            <li>Never provide your PIN or password as this can lead to easy withdrawal of your savings.</li>
+                            <li>Talk with your bank about establishing / setting up direct debits and pre-authorized bill payments.</li>
+                            <li>Consider who has access to your bank account, in doing so you can have control over your account.</li>
+                            <li><a href="https://www.ausbanking.org.au/policy/customers/vulnerable-customers/" target="_blank">https://www.ausbanking.org.au/policy/customers/vulnerable-customers/</a></li>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-d" role="tabpanel" aria-labelledby="list-d-list">
+                        <div class="ml">
+                            <li>Don't use your own device (phone, computer, etc) for any new banking, security plans or personal chats so that your partner cannot access to or check.</li>
+                            <li>Protect your browser history to prevent your partner seeing what sites you have visited (Using Google Chrome Incognito).</li>
+                            <li>Passcode all devices.</li>
+                            <li>Turn off location settings and services on your phone and devices.</li>
+                            <li><a href="https://www.esafety.gov.au/women/lifestyle/know-your-device/phones-and-tablets" target="_blank">https://www.esafety.gov.au/women/lifestyle/know-your-device/phones-and-tablets</a></li>
+                            <li><a href="https://techsafety.org.au/resources/resources-women/" target="_blank">https://techsafety.org.au/resources/resources-women/</a></li>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-e" role="tabpanel" aria-labelledby="list-e-list">
+                        <div class="ml">
+                            <li>To set up your own bank account, and talk to your advisor why you are doing this and ask how it can be done without your partner knowing that you have a private account.</li>
+                            <li>Ensure that account statements or other formal bank documents are not sent to your home address..</li>
+                            <li>Ensure any joint credit cards (that may be related to your bank account or other cards) including any supplementary cards, are either frozen or cancelled.</li>
+                            <li>Make sure that any automatic payments (credits) to the joint account made under your name (e.g. Centrelink or salary) are redirected to your new account before the hold is put in place.</li>
+                            <li><a href="https://www.anz.com/about-us/corporate-sustainability/microsite/anz-financial-hardship/" target="_blank">https://www.anz.com/about-us/corporate-sustainability/microsite/anz-financial-hardship/</a></li>
+                            <li><a href="https://www.commbank.com.au/support/financial-difficulty.html" target="_blank">https://www.commbank.com.au/support/financial-difficulty.html</a></li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}

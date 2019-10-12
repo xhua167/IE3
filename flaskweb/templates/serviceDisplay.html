@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    <style>
+        a {
+            color: dodgerblue;
+        }
+        a:hover {
+            {#color: red;#}
+            text-decoration: underline;
+        }
+    </style>
+
+{% endblock head %}
+
+{% block content %}
+
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background: white">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" style="text-transform: capitalize" >{{ service_name }}</li>
+            </ol>
+    </nav>
+
+    <div class="container">
+
+        <h3 style="text-transform: capitalize">{{ service_name }} services</h3>
+
+        {% if service_name != 'hotlines' %}
+        <div id="map1" style="height:300px"></div>
+                <br />
+        {% endif %}
+{#        {{ pagination.links }}#}
+        <table class="table" style="margin-top: 20px">
+            <thead class="thead-light">
+                <tr>
+                  <th scope="col" style="width: 30%">Name</th>
+                  <th scope="col" style="width: 50%">Description</th>
+                  <th scope="col" style="width: 10%">Rating</th>
+                  <th scope="col" style="display: none">longitude</th>
+                  <th scope="col" style="display: none">latitude</th>
+                  <th scope="col" style="display: none">type</th>
+                  <th scope="col" style="display: none">id_</th>
+                  <th scope="col" style="width: 10%"></th>
+                </tr>
+            </thead>
+            {% for i in pagination_data %}
+                {% if i['What'] != 'Unknown' %}
+                    <tbody>
+                        <tr class="coordinates">
+                          {% if favoList != [] %}
+                              {% if i not in favoList %}
+                                  <td class="description">{{ i['Name'] }} ({{ i['Type'] }})
+                                      <a href="{{ url_for('addFavorite', service_id=i['id_'], service_name=i['Type']) }}">
+                                        <span class="heart"><i class="fa fa-heart-o" aria-hidden="true" ></i></span>
+                                      </a>
+                                  </td>
+                              {% else %}
+                                  <td class="description">{{ i['Name'] }} ({{ i['Type'] }})
+                                      <a href="{{ url_for('removeFavorite', service_id=i['id_'], service_name=i['Type']) }}">
+                                        <span class="heart"><i class="fa fa-heart" aria-hidden="true" ></i></span>
+                                      </a>
+                                  </td>
+                              {% endif %}
+                          {% else %}
+                              <td class="description">{{ i['Name'] }} ({{ i['Type'] }})
+                                  <a href="{{ url_for('addFavorite', service_id=i['id_'], service_name=i['Type']) }}">
+                                    <span class="heart"><i class="fa fa-heart-o" aria-hidden="true" ></i></span>
+                                  </a>
+                              </td>
+                          {% endif %}
+                          <td>{{ i['What'] }}</td>
+                          <td>{{ i['meanRating'] }}</td>
+                          <td class="longitude" style="display: none">{{ i['Longitude'] }}</td>
+                          <td class="latitude" style="display: none">{{ i['Latitude'] }}</td>
+                          <td class="type" style="display: none">{{ i['Type'] }}</td>
+                          <td class="id_" style="display: none">{{ i['id_'] }}</td>
+                          <td><a href="{{ url_for('detailedInfo', service_id=i['id_'], servicename=service_name) }}" class="btn btn-primary">More</a></td>
+                        </tr>
+                    </tbody>
+                {% endif %}
+            {% endfor %}
+        </table>
+        {{ pagination.links }}
+    </div>
+
+{#    <footer class="site-footer" role="contentinfo" style="margin-top: 100px">#}
+{#        <div class="row">#}
+{#        <div class="col-12 text-md-center text-left">#}
+{#          <p>#}
+{#              Data sources are provided by <a href="https://data.melbourne.vic.gov.au/People-Events/Free-and-cheap-support-services-with-opening-hours/jtcb-iab6" target="_blank">#}
+{#              CITY OF MELBOURNE#}
+{#          </a>#}
+{#          </p>#}
+{#        </div>#}
+{#      </div>#}
+{#    </footer>#}
+
+
+{% endblock content %}
+
+
+
+{#<div class="serviceDisplay">#}
+{#    <table class="table">#}
+{#    <thead class="thead-light">#}
+{#    <tr>#}
+{#      <th scope="col">Service</th>#}
+{#      <th scope="col">Description</th>#}
+{#    </tr>#}
+{#    </thead>#}
+{#    <tbody>#}
+{#    {% for i in data %}#}
+{#    {% if i['What'] != 'nan' %}#}
+{#    <tr>#}
+{#        <td>{{ i['Name'] }}</td>#}
+{#        <td>{{ i['What'] }}</td>#}
+{#        <td><a href="{{ url_for('detailedInfo', service_id=i['_id'], servicename=service_name) }}" class="btn btn-danger">More Information</a></td>#}
+{#    </tr>#}
+{#    {% endif %}#}
+{#    {% endfor %}#}
+{#    </tbody>#}
+{#    </table>#}
+{#</div>    #}
+
+{#<form method="POST" action="">#}
+{#                            {{ form.hidden_tag() }}#}
+{#                            <fieldset class="form-group">#}
+{#                                <div class="form-group">#}
+{#                                    {{ form.favorite(class="form-control form-control-lg", id="favorite_ID") }}#}
+{#                                </div>#}
+{#                            </fieldset>#}
+{#                            <div class="form-group">#}
+{#                                {{ form.submit(class="btn btn-outline-info") }}#}
+{#                            </div>#}
+{#                        </form>#}
+
+
+{#    <script>#}
+{#        var favoriteID = document.getElementById('serviceid').innerHTML#}
+{#        console.log(favoriteID)#}
+{#        document.getElementById('favorite_ID').value = favoriteID;#}
+{#    </script>#}

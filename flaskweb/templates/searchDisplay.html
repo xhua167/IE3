@@ -1,0 +1,138 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    <style>
+        a {
+            color: dodgerblue;
+        }
+        a:hover {
+            {#color: red;#}
+            text-decoration: underline;
+        }
+    </style>
+
+{% endblock head %}
+
+{% block content %}
+
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background: white">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" style="text-transform: capitalize" >Search</li>
+            </ol>
+    </nav>
+
+    <div class="container">
+        <form class="form-inline my-2 my-lg-0" method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group" style="padding-right: 10px">
+                <div class="form-group">
+                    {% if form.search.errors %}
+                        {{ form.search(class="form-control form-control-sm is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.search.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.search(class="form-control form-control-sm", placeholder="Search for services") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-primary") }}
+            </div>
+        </form>
+        <h2 style="margin-top: 30px">Search for "{{ keyword }}"</h2>
+        <div id="keyword" style="display: none">{{ keyword }}</div>
+        {% if data == [] %}
+            <p>No results found, Please try again</p>
+        {% else %}
+
+            <div id="map2" style="height:300px"></div>
+                <br />
+
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                      <th scope="col" style="width: 30%">Name</th>
+                      <th scope="col" style="width: 50%">Description</th>
+                      <th scope="col" style="width: 10%">Rating</th>
+                      <th scope="col" style="display: none">longitude</th>
+                      <th scope="col" style="display: none">latitude</th>
+                      <th scope="col" style="display: none">type</th>
+                      <th scope="col" style="display: none">id_</th>
+                      <th scope="col" style="width: 10%"></th>
+                    </tr>
+                </thead>
+                {% for i in pagination_data %}
+                    {% if i['What'] != 'Unknown' %}
+                        <tbody>
+                            <tr class="coordinates">
+                              {% if favoList != [] %}
+                                  {% if i not in favoList %}
+                                      <td class="description">{{ i['Name'] }} ({{ i['Type'] }})
+                                          <a href="{{ url_for('addFavoriteSearch', service_id=i['id_'], service_name=i['Type'], keyword=keyword)}}">
+                                            <span class="heart"><i class="fa fa-heart-o" aria-hidden="true" ></i></span>
+                                          </a>
+                                      </td>
+                                  {% else %}
+                                      <td class="description">{{ i['Name'] }} ({{ i['Type'] }})
+                                          <a href="{{ url_for('remFavoriteSearch', service_id=i['id_'], service_name=i['Type'],keyword=keyword) }}">
+                                            <span class="heart"><i class="fa fa-heart" aria-hidden="true" ></i></span>
+                                          </a>
+                                      </td>
+                                  {% endif %}
+                              {% else %}
+                                  <td class="description">{{ i['Name'] }} ({{ i['Type'] }})
+                                      <a href="{{ url_for('addFavoriteSearch', service_id=i['id_'], service_name=i['Type'],keyword=keyword) }}">
+                                        <span class="heart"><i class="fa fa-heart-o" aria-hidden="true" ></i></span>
+                                      </a>
+                                  </td>
+                              {% endif %}
+                              <td>{{ i['What'] }}</td>
+                              <td>{{ i['meanRating'] }}</td>
+                              <td class="longitude" style="display: none">{{ i['Longitude'] }}</td>
+                              <td class="latitude" style="display: none">{{ i['Latitude'] }}</td>
+                              <td class="type" style="display: none">{{ i['Type'] }}</td>
+                              <td class="id_" style="display: none">{{ i['id_'] }}</td>
+                              <td><a href="{{ url_for('detailedSearch', service_id=i['id_'], servicename=i['Type'], keyword=keyword) }}" class="btn btn-primary">More</a></td>
+                            </tr>
+                        </tbody>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        {% endif %}
+    {{ pagination.links }}
+    </div>
+
+    <footer class="site-footer" role="contentinfo" style="margin-top: 100px">
+        <div class="row">
+        <div class="col-12 text-md-center text-left">
+          <p>
+              Data sources are provided by <a href="https://data.melbourne.vic.gov.au/People-Events/Free-and-cheap-support-services-with-opening-hours/jtcb-iab6" target="_blank">
+              CITY OF MELBOURNE
+          </a>
+          </p>
+        </div>
+      </div>
+    </footer>
+{% endblock content %}
+
+{#{% for i in data %}#}
+{#                {% if i['What'] != 'Unknown' %}#}
+{#                <div class="row">#}
+{#                    <div class="col">#}
+{#                        <p><b>{{ i['Name'] }} ({{ i['Type'] }})</b>#}
+{#                            <a href="{{ url_for('addFavoriteSearch', keyword=keyword, service_id=i['id_'], service_name=i['type']) }}">#}
+{#                                   <span class="heart"><i class="fa fa-heart-o" aria-hidden="true" ></i></span>#}
+{#                            </a></p>#}
+{#                        <p><b>Description</b>: {{ i['What'] }}</p>#}
+{#                        <p><b>Rating</b>: {{ i['meanRating'] }}</p>#}
+{#                        <a href="{{ url_for('detailedInfo', service_id=i['id_'], servicename=i['type']) }}" class="btn btn-info">More Information</a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <hr>#}
+{#                {% endif %}#}
+{#            {% endfor %}#}
