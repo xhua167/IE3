@@ -1,4 +1,17 @@
 {% extends "layout.html" %}
+
+{% block head %}
+    <style>
+        .breadcrumb-item a {
+            color: dodgerblue;
+        }
+        .breadcrumb-item a:hover {
+            {#color: red;#}
+            text-decoration: underline;
+        }
+    </style>
+{% endblock head %}
+
 {% block content %}
 
     <nav aria-label="breadcrumb">
