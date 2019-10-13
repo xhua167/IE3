@@ -1,3 +1,5 @@
+{# This html is for the about page #}
+
 {% extends "layout.html" %}
 {% block head %}
     <style>
@@ -9,13 +11,13 @@
             color: dodgerblue;
         }
         a:hover {
-            {#color: red;#}
             text-decoration: underline;
         }
     </style>
 {% endblock head %}
 {% block content %}
 
+    {# This is the breadcrumb #}
     <nav aria-label="breadcrumb">
             <ol class="breadcrumb" style="background: white">
                 <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
@@ -25,28 +27,20 @@
 
     <div class="container">
         <div class="row">
+
+            {# This is for the video #}
             <div class="col-8">
                 <iframe width="672" height="378" src="https://www.youtube.com/embed/c1NvxErEHvg" frameborder="0"
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
+
+            {# This is for the description words #}
             <div class="col-4">
                 <h2 class="mb-4 section-title" style="margin-top: 50px">What can we do?</h2>
                     <p>Our product will ease the way for financial abuse victims, especially female victims of the age 19-35 making the services more accessible more convenient. When you are in need of services, we provide the right available services which are free and nearby. These services include, accommodation, essential items, legal advice and a whole lot more. Finding these services more easily and making your life more convenient and bringing a ray of hope to your lives.</p>
             </div>
         </div>
     </div>
-{#        <div class="row align-items-center" style="margin-top: 20px">#}
-{#            <div class="col-md-6 order-md-2" data-aos="fade-up" data-aos-delay="100">#}
-{#                <figure class="img-dotted-bg">#}
-{#                    <img src="{{ url_for('static', filename='img/hero_2.jpg') }}" alt="Image" class="img-fluid">#}
-{#                </figure>#}
-{#                #}
-{#            </div>#}
-{#            <div class="col-md-5 mr-auto" data-aos="fade-up" data-aos-delay="">#}
-{#
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
 
 {% endblock content %}
 

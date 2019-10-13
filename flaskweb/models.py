@@ -1,5 +1,7 @@
 from flaskweb import db, login_manager
 
+# Method to return the user object
+# Accept the user's email
 @login_manager.user_loader
 def load_user(email):
     userjson = db.user.find_one({'email': email})
@@ -7,6 +9,7 @@ def load_user(email):
         return None
     return User(email=userjson['email'], username=userjson['username'])
 
+# Define a class for user
 class User:
     def __init__(self, email, username):
         self.email = email
@@ -27,9 +30,3 @@ class User:
     def get_id(self):
         return self.email
 
-# from flask_login import UserMixin
-
-#
-# class User(UserMixin):
-#     def __init__(self, email):
-#         self.email = email

@@ -1,3 +1,5 @@
+{# This html is the statistics page. #}
+
 {% extends "layout.html" %}
 {% block head %}
 
@@ -12,7 +14,6 @@
             color: dodgerblue;
         }
         a:hover {
-            {#color: red;#}
             text-decoration: underline;
         }
     </style>
@@ -20,6 +21,7 @@
 {% endblock head %}
 {% block content %}
 
+    {# This is the breadcrumb. #}
     <nav aria-label="breadcrumb">
             <ol class="breadcrumb" style="background: white">
                 <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
@@ -27,6 +29,7 @@
             </ol>
     </nav>
 
+    {# These are four data visualisations and their description words. #}
     <div class="container">
     <h3 style="margin-top: 30px; padding-bottom: 20px">Data Visualisation</h3>
         <div class="row" style="margin-top: 30px">
@@ -36,7 +39,7 @@
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <div class="ml">
                     <p style="margin-top: 50%">
-                        Historical data demonstrates that the number of clients served by homeless support services were increasing in the past decade, especially for female clients.
+                        Historical data demonstrates that the number of clients served by homeless support services were increasing in past a decade, especially for female clients.
                     </p>
                 </div>
             </div>
@@ -75,26 +78,14 @@
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <div class="ml">
                     <p style="margin-top: 50%">
-                        When people only know few names of help services or have limited channels to know more services, one or a few help centers might be too crowded and unassisted requests would arise. In this case, we expect our website providing a channel that allows people know more services around Melbourne.
+                        When people only know few names of help services or have limited channels to know more services, one or a few help centers might be too crowded and unassisted requests would arise. In this case, we expect our website providing a channel that allowing people know more services around Melbourne.
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-{#    <footer class="site-footer" role="contentinfo" style="margin-top: 100px">#}
-{#        <div class="row">#}
-{#        <div class="col-12 text-md-center text-left">#}
-{#          <p>#}
-{#              Data sources are provided by <a href="https://www.aihw.gov.au/reports-data/behaviours-risk-factors/domestic-violence/overview" target="_blank">#}
-{#              Australian Institution of Health and Welfare#}
-{#          </a>#}
-{#          </p>#}
-{#        </div>#}
-{#      </div>#}
-{#    </footer>#}
-
-
+    {# These script are for the data visualisations. #}
     <script>
         Highcharts.chart('container1', {
           chart: {
@@ -368,9 +359,3 @@
 
 {% endblock content %}
 
-
-{#        plotBands: [{#}
-{#          from: 4.5,#}
-{#          to: 6.5,#}
-{#          color: 'rgba(68, 170, 213, .2)'#}
-{#        }]#}

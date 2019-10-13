@@ -1,3 +1,5 @@
+{# This html is the search display page. #}
+
 {% extends "layout.html" %}
 
 {% block head %}
@@ -6,7 +8,6 @@
             color: dodgerblue;
         }
         a:hover {
-            {#color: red;#}
             text-decoration: underline;
         }
     </style>
@@ -15,6 +16,7 @@
 
 {% block content %}
 
+    {# This is the breadcrumb. #}
     <nav aria-label="breadcrumb">
             <ol class="breadcrumb" style="background: white">
                 <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
@@ -22,6 +24,7 @@
             </ol>
     </nav>
 
+    {# This is the search bar. #}
     <div class="container">
         <form class="form-inline my-2 my-lg-0" method="POST" action="">
             {{ form.hidden_tag() }}
@@ -35,7 +38,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.search(class="form-control form-control-sm", placeholder="Search for services") }}
+                        {{ form.search(class="form-control form-control-sm", placeholder="Search for services", pattern="[a-zA-Z0-9\s]+") }}
                     {% endif %}
                 </div>
             </fieldset>
@@ -45,12 +48,16 @@
         </form>
         <h2 style="margin-top: 30px">Search for "{{ keyword }}"</h2>
         <div id="keyword" style="display: none">{{ keyword }}</div>
+
+        {# This is for no result found. #}
         {% if pagination_data == [] %}
             <p>No results found, Please try again</p>
-        {% else %}
 
-            <div id="map2" style="height:300px"></div>
-                <br />
+        {% else %}
+            {% if map == 'yes' %}
+                <div id="map2" style="height:300px"></div>
+                    <br />
+            {% endif %}
 
             <table class="table">
                 <thead class="thead-light">
@@ -106,33 +113,4 @@
     {{ pagination.links }}
     </div>
 
-    <footer class="site-footer" role="contentinfo" style="margin-top: 100px">
-        <div class="row">
-        <div class="col-12 text-md-center text-left">
-          <p>
-              Data sources are provided by <a href="https://data.melbourne.vic.gov.au/People-Events/Free-and-cheap-support-services-with-opening-hours/jtcb-iab6" target="_blank">
-              CITY OF MELBOURNE
-          </a>
-          </p>
-        </div>
-      </div>
-    </footer>
 {% endblock content %}
-
-{#{% for i in data %}#}
-{#                {% if i['What'] != 'Unknown' %}#}
-{#                <div class="row">#}
-{#                    <div class="col">#}
-{#                        <p><b>{{ i['Name'] }} ({{ i['Type'] }})</b>#}
-{#                            <a href="{{ url_for('addFavoriteSearch', keyword=keyword, service_id=i['id_'], service_name=i['type']) }}">#}
-{#                                   <span class="heart"><i class="fa fa-heart-o" aria-hidden="true" ></i></span>#}
-{#                            </a></p>#}
-{#                        <p><b>Description</b>: {{ i['What'] }}</p>#}
-{#                        <p><b>Rating</b>: {{ i['meanRating'] }}</p>#}
-{#                        <a href="{{ url_for('detailedInfo', service_id=i['id_'], servicename=i['type']) }}" class="btn btn-info">More Information</a>#}
-{#                    </div>#}
-{#                </div>#}
-{##}
-{#                <hr>#}
-{#                {% endif %}#}
-{#            {% endfor %}#}

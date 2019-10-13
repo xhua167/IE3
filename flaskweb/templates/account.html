@@ -1,3 +1,5 @@
+{# This html is for the favorite page. #}
+
 {% extends "layout.html" %}
 
 {% block head %}
@@ -6,14 +8,13 @@
             color: dodgerblue;
         }
         .breadcrumb-item a:hover {
-            {#color: red;#}
             text-decoration: underline;
         }
     </style>
 {% endblock head %}
 
 {% block content %}
-
+    {# This is the breadcrumb. #}
     <nav aria-label="breadcrumb">
             <ol class="breadcrumb" style="background: white">
                 <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
@@ -21,6 +22,7 @@
             </ol>
     </nav>
 
+    {# This is for showing user's favorites #}
     <div class="container">
         <h1>Hi, {{ current_user.username }}</h1>
         <h2 style="margin-bottom: 20px">Your favorite services: </h2>

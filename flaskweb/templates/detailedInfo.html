@@ -1,3 +1,5 @@
+{# This html is the detailed information page. #}
+
 {% extends "layout.html" %}
 {% block head %}
     <style>
@@ -14,22 +16,24 @@
     </style>
 {% endblock head %}
 {% block content %}
+
+    {# This is the breadcrumb #}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb" style="background: white">
+            <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
             {% if title == 'Service Imformation' %}
-                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ url_for('serviceDisplay', service_name=servicename) }}">{{ servicename }}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ data['Name'] }}</li>
             {% else %}
-                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ url_for('searchDisplay', keyword=keyword) }}">Search</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ data['Name'] }}</li>
             {% endif %}
+            <li class="breadcrumb-item active" aria-current="page">{{ data['Name'] }}</li>
         </ol>
     </nav>
-{#    <button id='back' type="button" class="btn btn-primary" onclick="back()">Back</button>#}
+
     <p id="id_" style="display: none">{{ data['id_'] }}</p>
     <p id="type" style="display: none">{{ data['type'] }}</p>
+
+    {# If this is not hotlines, display the imformation and the maps. #}
     {% if servicename != 'hotlines' %}
         <div class="row">
             <div class="col-sm-7 col-md-7 col-lg-7">
@@ -53,6 +57,8 @@
                                 <header class='header text-center'>
                                     <p>Do you like this service</p>
                                 </header>
+
+                                {# This for the rating. #}
                                 <section class='rating-widget'>
                                     <div class='rating-stars text-center'>
                                         <ul id='stars'>
@@ -107,12 +113,14 @@
                 </ul>
             </div>
 
+            {# This is the map. #}
             <div class="col-sm-5 col-md-5 col-lg-5">
                 <div id="map" style="height:500px"></div>
                 <br />
             </div>
         </div>
 
+    {# Show the information of hotlines without maps. #}
     {% else %}
         <div class="container">
             <div class="row">
@@ -190,6 +198,7 @@
 
 
     <script>
+        {# The hide and show function for rating and opening hours #}
         function myFunction() {
           var x = document.getElementById("openingHours");
           if (x.style.display === "block") {

@@ -1,3 +1,5 @@
+{# This html is the register page. #}
+
 {% extends "layout.html" %}
 
 {% block head %}
@@ -14,6 +16,7 @@
 {% endblock head %}
 {% block content %}
 
+    {# This is the breadcrumb. #}
     <nav aria-label="breadcrumb">
             <ol class="breadcrumb" style="background: white">
                 <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
@@ -21,6 +24,7 @@
             </ol>
     </nav>
 
+    {# This is the user input form. #}
     <div class="container">
         <div class="content-section">
             <form method="POST" action="">
