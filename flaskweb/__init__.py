@@ -9,10 +9,10 @@ jsglue = JSGlue()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '4d7e72400c6b35d23f38678282d3ba5d'
 
-# app.config['BASIC_AUTH_USERNAME'] = 'admin'
-# app.config['BASIC_AUTH_PASSWORD'] = 'help1024'
-# app.config['BASIC_AUTH_FORCE'] = True
-# basic_auth = BasicAuth(app)
+app.config['BASIC_AUTH_USERNAME'] = 'admin'
+app.config['BASIC_AUTH_PASSWORD'] = 'help1024'
+app.config['BASIC_AUTH_FORCE'] = True
+basic_auth = BasicAuth(app)
 
 jsglue.init_app(app)
 
