@@ -45,7 +45,7 @@
         </form>
         <h2 style="margin-top: 30px">Search for "{{ keyword }}"</h2>
         <div id="keyword" style="display: none">{{ keyword }}</div>
-        {% if data == [] %}
+        {% if pagination_data == [] %}
             <p>No results found, Please try again</p>
         {% else %}
 
